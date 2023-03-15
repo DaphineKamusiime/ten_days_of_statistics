@@ -62,3 +62,58 @@ if __name__ == '__main__':
     weights = list(map(int, input().rstrip().split()))
 
     weightedMean(vals, weights)
+#https://www.hackerrank.com/challenges/s10-quartiles
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'quartiles' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts INTEGER_ARRAY arr as parameter.
+#
+
+def quartiles(arr):
+    # Write your code here
+    n = len(arr)
+    arr = sorted(arr)
+
+    if n % 2 == 0:
+        lower_half = arr[:n//2]
+        upper_half = arr[n//2:]
+    else:
+        lower_half = arr[:n//2]
+        upper_half = arr[n//2+1:]
+
+    q1 = median(lower_half)
+    q2 = median(arr)
+    q3 = median(upper_half)
+
+    return [q1, q2, q3]
+
+
+def median(arr):
+    n = len(arr)
+    if n % 2 == 0:
+        return (arr[n//2-1] + arr[n//2]) // 2
+    else:
+        return arr[n//2]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    data = list(map(int, input().rstrip().split()))
+
+    res = quartiles(data)
+
+    fptr.write('\n'.join(map(str, res)))
+    fptr.write('\n')
+
+    fptr.close()
